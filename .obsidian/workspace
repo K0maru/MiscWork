@@ -1,0 +1,137 @@
+{
+  "main": {
+    "id": "a8208bcff28e00de",
+    "type": "split",
+    "children": [
+      {
+        "id": "4aeedab00a71dc07",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "BUFFER/未命名 1.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1798267d90e6f88c",
+    "type": "split",
+    "children": [
+      {
+        "id": "5ad886b1aec9f793",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c34a41524e4e1270",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "399c957550c0531b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 292
+  },
+  "right": {
+    "id": "c8c803fcd2af727b",
+    "type": "split",
+    "children": [
+      {
+        "id": "f1b4cf6ee4102084",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e31a3f23c621531d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "BUFFER/未命名 1.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6894a39e361bbe9e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "BUFFER/未命名 1.md"
+              }
+            }
+          },
+          {
+            "id": "1c7125391b1f887e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "BUFFER/未命名 1.md",
+                "linksCollapsed": true,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "70b6bfa570d44ffe",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 186.5,
+    "collapsed": true
+  },
+  "active": "4aeedab00a71dc07",
+  "lastOpenFiles": [
+    "BUFFER/未命名 1.md",
+    "BUFFER/未命名.md",
+    "BUFFER/软件学习计划.md",
+    "BUFFER/The ROS2 graph.md",
+    "集训记录/2022.7.2.md",
+    "集训记录/2022.7.1.md",
+    "数学分析/数项级数.md",
+    "数学分析/函数列与函数项级数.md",
+    "数学分析/多元化函数微分学.md",
+    "BUFFER/C++_Class.md"
+  ]
+}
