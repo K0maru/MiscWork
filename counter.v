@@ -8,3 +8,4 @@ module counter(irst, iclk, ocnt );
       ocnt <= ocnt + 1'b1;
 endmodule
 
+
