@@ -1,13 +1,15 @@
 module ALU32_test(
 
     );
-    reg [10:0] op;
+    reg [3:0] op;
+    reg [3:0] op1;
     reg [31:0] in0,in1;
     wire [31:0] out;
     wire carryout,overflow,zero;
-    ALU32 alu(op,in0,in1,carryout,overflow,zero,out);
+    ALU32 alu(op1,op,in0,in1,carryout,overflow,zero,out);
     initial
     begin
+     /*
     //add
          op=11'b00000100000;        
          in0=32'hf2340000;
@@ -102,6 +104,18 @@ module ALU32_test(
          in1=32'd3;
     #20  in0=32'h0fffffff;
          in1=32'd5;
+         */
+         op = 4'b0000;
+         op1 = 4'b0001;
+         in0=32'h00000005;
+          in1=32'h0000000c;
+            
+     #20  op=4'b1000;
+          op1=4'b0010;
+          in0=32'h00000005;
+          in1=32'h0000000c;
+     
+
     end
 
 initial
