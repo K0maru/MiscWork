@@ -64,7 +64,7 @@ LL result(LL n,LL k){
 	//		看了很多题解，发现我的方法和思路是没问题的，问题是为何WA?
 	//		tip7:尝试搬一个人的题解里的函数过来测试
 	//		tip8:尝试失败
-
+	// 		tip9:问题解决
 	LL K1 = k;
 	while (have_L < have_h) {
 		mid = (have_h + have_L)>>1;
