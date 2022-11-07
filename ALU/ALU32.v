@@ -43,10 +43,10 @@ carryout,overflow,zero,out,N
             4'b0010:
             ALU_Logic Logic(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
             4'b0011:
-            ALU_multi multi(.A(in0),.B(in1),.Y(out),.op1(op));//阵列乘法
+            ALU_multi multi(.A(in0),.B(in1),.Y(out),.zero(zero),.carryout(carryout),.overflow(overflow),.N(N));//阵列乘法
             default:;
             endcase
-        
+            
     endgenerate
 endmodule
 
@@ -227,7 +227,7 @@ assign Cout = a & b;
 
 endmodule
 
-module ALU_multi(A,B,Y,op1,carryout,overflow,zero,N);//阵列乘法
+module ALU_multi(A,B,Y,carryout,overflow,zero,N);//阵列乘法
 
     input [31:0]A;
     input [31:0]B;  
