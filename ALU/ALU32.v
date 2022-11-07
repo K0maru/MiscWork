@@ -32,17 +32,17 @@ carryout,overflow,zero,out,N
     input [3:0] op1;
     output wire  [31:0] out;
     output wire carryout,overflow,zero,N;
-    parameter O = 4'b0000;
+    parameter O = 0;
     
     generate
             case (O)
-            4'b0000:
+            0:
             ALU_add adder(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
-            4'b0001:
+            1:
             ALU_weiyi weiyi(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
-            4'b0010:
+            2:
             ALU_Logic Logic(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
-            4'b0011:
+            3:
             ALU_multi multi(.A(in0),.B(in1),.Y(out),.zero(zero),.carryout(carryout),.overflow(overflow),.N(N));//阵列乘法
             default:;
             endcase
