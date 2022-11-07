@@ -1,5 +1,5 @@
 $date
-	Sun Oct 30 16:55:01 2022
+	Mon Nov  7 00:54:10 2022
 $end
 $version
 	Icarus Verilog
@@ -8,125 +8,79 @@ $timescale
 	1ps
 $end
 $scope module ALU32_test $end
-$var wire 1 ! carryout $end
+$var wire 1 ! zero $end
 $var wire 1 " overflow $end
-$var wire 1 # zero $end
-$var wire 32 $ out [31:0] $end
+$var wire 32 # out [31:0] $end
+$var wire 1 $ carryout $end
 $var reg 32 % in0 [31:0] $end
 $var reg 32 & in1 [31:0] $end
 $var reg 4 ' op [3:0] $end
 $var reg 4 ( op1 [3:0] $end
 $scope module alu $end
-$var wire 1 ! carryout $end
 $var wire 32 ) in0 [31:0] $end
 $var wire 32 * in1 [31:0] $end
 $var wire 4 + op [3:0] $end
 $var wire 4 , op1 [3:0] $end
+$var wire 1 ! zero $end
 $var wire 1 " overflow $end
-$var wire 1 # zero $end
-$var wire 32 - out4 [31:0] $end
-$var wire 32 . out3 [31:0] $end
-$var wire 32 / out2 [31:0] $end
-$var wire 32 0 out1 [31:0] $end
-$var reg 32 1 out [31:0] $end
-$scope module Logic $end
-$var wire 32 2 in0 [31:0] $end
-$var wire 32 3 in1 [31:0] $end
-$var wire 4 4 op1 [3:0] $end
-$var reg 1 5 carryout $end
-$var reg 32 6 out [31:0] $end
-$var reg 1 7 overflow $end
-$var reg 1 8 zero $end
-$upscope $end
+$var wire 32 - out [31:0] $end
+$var wire 1 $ carryout $end
+$scope begin genblk1 $end
 $scope module adder $end
-$var wire 32 9 in0 [31:0] $end
-$var wire 32 : in1 [31:0] $end
-$var wire 4 ; op1 [3:0] $end
-$var reg 1 < carryout $end
-$var reg 32 = out [31:0] $end
-$var reg 1 > overflow $end
-$var reg 1 ? zero $end
+$var wire 32 . in0 [31:0] $end
+$var wire 32 / in1 [31:0] $end
+$var wire 4 0 op1 [3:0] $end
+$var reg 1 $ carryout $end
+$var reg 32 1 out [31:0] $end
+$var reg 1 " overflow $end
+$var reg 1 ! zero $end
 $upscope $end
-$scope module multi $end
-$var wire 32 @ in1 [31:0] $end
-$var wire 32 A in2 [31:0] $end
-$var wire 4 B op1 [3:0] $end
-$var wire 32 C out [31:0] $end
-$var integer 32 D i [31:0] $end
-$var integer 32 E j [31:0] $end
-$upscope $end
-$scope module weiyi $end
-$var wire 32 F in0 [31:0] $end
-$var wire 32 G in1 [31:0] $end
-$var wire 4 H op1 [3:0] $end
-$var reg 1 I carryout $end
-$var reg 32 J out [31:0] $end
-$var reg 1 K overflow $end
-$var reg 1 L zero $end
 $upscope $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
 #0
 $dumpvars
-xL
-xK
-bx J
-xI
-b0 H
-b1100 G
-b101 F
-bx E
-bx D
-bx C
-b0 B
-b1100 A
-b101 @
-0?
-0>
-b10001 =
-0<
-b0 ;
-b1100 :
-b101 9
-x8
-x7
-bx 6
-x5
-b0 4
-b1100 3
-b101 2
-b10001 1
-b10001 0
-bx /
-bx .
-bx -
-b1 ,
-b0 +
-b1100 *
-b101 )
-b1 (
-b0 '
-b1100 &
-b101 %
-b10001 $
-x#
-x"
-x!
+b10000000000000000000000000000000 1
+b0 0
+b1 /
+b1111111111111111111111111111111 .
+b10000000000000000000000000000000 -
+b0 ,
+bx +
+b1 *
+b1111111111111111111111111111111 )
+b0 (
+bx '
+b1 &
+b1111111111111111111111111111111 %
+0$
+b10000000000000000000000000000000 #
+1"
+0!
 $end
 #20000
-b101000000000000 $
-b101000000000000 1
-0L
-0K
-0I
-b101000000000000 /
-b101000000000000 J
+0"
+b10000 #
+b10000 -
+b10000 1
+b1111111111111111111111111111111 &
+b1111111111111111111111111111111 *
+b1111111111111111111111111111111 /
+b1111 %
+b1111 )
+b1111 .
+b1 (
+b1 ,
+b1 0
+#40000
+1"
+b1110000000000000000000000000001 #
+b1110000000000000000000000000001 -
+b1110000000000000000000000000001 1
+b11110000000000000000000000000000 %
+b11110000000000000000000000000000 )
+b11110000000000000000000000000000 .
 b10 (
 b10 ,
-b1000 '
-b1000 +
-b1000 4
-b1000 ;
-b1000 B
-b1000 H
+b10 0

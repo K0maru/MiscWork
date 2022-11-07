@@ -19,77 +19,35 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+//op1选择模块内运算
+//op选择模块
 
 module ALU32(
 op1,op,in0,in1,
-carryout,overflow,zero,out
+carryout,overflow,zero,out,N
     );
     //carryout:进位
     input [31:0] in0,in1;
     input [3:0] op;
     input [3:0] op1;
-    output reg  [31:0] out;
-    output wire  [31:0] out1;
-    output wire  [31:0] out2;
-    output wire  [31:0] out3;
-    output wire  [31:0] out4;
-    output wire carryout,overflow,zero;
-
-    ALU_add adder(.in0(in0),.in1(in1),.out(out1),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op));
-    ALU_weiyi weiyi(.in0(in0),.in1(in1),.out(out2),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op));
-    ALU_Logic Logic(.in0(in0),.in1(in1),.out(out3),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op));
-    ALU_multi multi(.in1(in0),.in2(in1),.out(out4),.op1(op));//阵列乘法
-  always @(*) begin
-    case (op1)
-        4'b0001:
-        begin
-            assign out = out1;
-        end
-        4'b0010:
-        begin
-            assign out = out2;
-        end
-        4'b0011:
-        begin
-            assign out = out3;
-        end
-        4'b0100:
-        begin
-            assign out = out4;
-        end 
-        default:
-        begin
-          
-        end
+    output wire  [31:0] out;
+    output wire carryout,overflow,zero,N;
+    parameter O = 4'b0000;
+    
+    generate
+            case (O)
+            4'b0000:
+            ALU_add adder(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
+            4'b0001:
+            ALU_weiyi weiyi(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
+            4'b0010:
+            ALU_Logic Logic(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
+            4'b0011:
+            ALU_multi multi(.in1(in0),.in2(in1),.out(out),.op1(op));//阵列乘法
+            default:;
+            endcase
         
-    endcase
-  end
-    /*
-    case(op)
-        //加减法
-        4'b0000:
-            begin
-                ALU_add adder(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1));
-            end
-        //逻辑运算
-        4'b0001:
-            begin
-                ALU_Logic Logic(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1));
-            end
-        //位移运算
-        4'b0010:
-            begin
-                ALU_weiyi weiyi(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1));
-            end
-        4'b0011:
-            begin
-                
-            end
-        
-
-    endcase
-    */
+    endgenerate
 endmodule
 
 
@@ -97,44 +55,46 @@ endmodule
 
 module ALU_add (
     in0,in1,
-carryout,overflow,zero,out,op1
+carryout,overflow,zero,out,op1,N
 );
     input [31:0] in0,in1;
     input [3:0] op1;
     output reg [31:0] out;
-    output reg carryout,overflow,zero;
+    output reg carryout,overflow,zero,N;
     always @(*)
     case(op1)
         //add加法
         4'b0000:
             begin 
-                out=in0+in1;
+                {carryout,out}=in0+in1;
                 overflow=((in0[31]==in1[31])&&(~out[31]==in0[31]))?1:0;
                 zero=(out==0)?1:0;
-                carryout=0;    
+                N = out[31];
+                
             end
-        //addu无符号加法
+        //add1
         4'b0001:
             begin
-            
-                {carryout,out}=in0+in1;
+                {carryout,out}=in0+1;
                 zero=(out==0)?1:0;
-                overflow=0;
+                N = out[31];
+                overflow=(~out[31]==in0[31])?1:0;
             end
         //sub减法
         4'b0010:
             begin
-                out=in0-in1;
+                {carryout,out}=in0-in1;
+                N = out[31];
                 overflow=((in0[31]==0&&in1[31]==1&&out[31]==1)||(in0[31]==1&&in1[31]==0&&out[31]==0))?1:0;
                 zero=(in0==in1)?1:0;
-                carryout=0;
             end
-        //subu无符号减法
+        //sub1
         4'b0011:
             begin
-                {carryout,out}=in0-in1;
+                {carryout,out}=in0-1;
+                N = out[31];
                 zero=(out==0)?1:0;
-                overflow=0;
+                overflow=(~out[31]==in0[31])?1:0;
             end
         default:
             begin
@@ -146,16 +106,16 @@ endmodule
 
 module ALU_Logic (
     op1,in0,in1,
-carryout,overflow,zero,out
+carryout,overflow,zero,out,N
 );
     input [31:0] in0,in1;
     input [3:0] op1;
     output reg [31:0] out;
-    output reg carryout,overflow,zero;
+    output reg carryout,overflow,zero,N;
   always @(*) begin
     case(op1)
         //and与
-        4'b0100:
+        4'b0000:
             begin
                 out=in0&in1;
                 zero=(out==0)?1:0;
@@ -163,7 +123,7 @@ carryout,overflow,zero,out
                 overflow=0;
             end
         //or或
-        4'b0101:
+        4'b0001:
             begin
                 out=in0|in1;
                 zero=(out==0)?1:0;
@@ -171,7 +131,7 @@ carryout,overflow,zero,out
                 overflow=0;
             end
         //xor异或
-        4'b0110:
+        4'b0010:
             begin
                 out=in0^in1;
                 zero=(out==0)?1:0;
@@ -179,7 +139,7 @@ carryout,overflow,zero,out
                 overflow=0;
             end
         //nor或非
-        4'b0111:
+        4'b0011:
             begin
                 out=~(in0|in1);
                 zero=(out==0)?1:0;
@@ -197,23 +157,23 @@ endmodule
 
 module ALU_weiyi (
     op1,in0,in1,
-carryout,overflow,zero,out
+carryout,overflow,zero,out,N
 );
     input [31:0] in0,in1;
     input [3:0] op1;
     output reg [31:0] out;
-    output reg carryout,overflow,zero;
+    output reg carryout,overflow,zero,N;
     always @(*) begin
         case(op1)
             //shl逻辑左移
-        4'b1000:
+        4'b0000:
             begin
                 {carryout,out}=in0<<in1;
                 overflow=0;
                 zero=(out==0)?1:0;
             end
         //shr逻辑右移
-        4'b1001:
+        4'b0001:
             begin
                 out=in0>>in1;
                 carryout=in0[in1-1];
@@ -221,19 +181,21 @@ carryout,overflow,zero,out
                 zero=(out==0)?1:0;
             end
         //sar算术右移
-        4'b1010:
+        4'b0010:
             begin
                 out=($signed(in0))>>>in1;
+                N = out[31];
                 carryout=in0[in1-1];
                 overflow=0;
                 zero=(out==0)?1:0;
             end
         //sal算术左移
-        4'b1011:
+        4'b0011:
             begin
                 {carryout,out}=($signed(in0))<<<in1;
                 overflow=0;
                 zero=(out==0)?1:0;
+                N = out[31];
             end
         default:
             begin
@@ -243,17 +205,18 @@ carryout,overflow,zero,out
     end
 endmodule
 
-module ALU_multi(in1,in2,out,op1);//阵列乘法
+module ALU_multi(in1,in2,out,op1,N);//阵列乘法
 
 input [31:0] in1,in2;
 input [3:0] op1;
-output [31:0] out;
+output reg [31:0] out;
 reg [31:0] in1xin2 [31:0];
+output reg N;
 integer i,j;
 always @ (*)
 begin
     case(op1)
-    4'b1111:
+    4'b0000:
     begin
     for(i=0;i<=31;i=i+1)
     begin
@@ -294,4 +257,6 @@ assign out=(({32'b1,in1xin2[0][31],in1xin2[0][30:0]}+{31'b0,in1xin2[1][31],in1xi
                 ({6'b0,in1xin2[26][31],in1xin2[26][30:0],26'b0}+{5'b0,in1xin2[27][31],in1xin2[27][30:0],27'b0})+
                 ({4'b0,in1xin2[28][31],in1xin2[28][30:0],28'b0}+{3'b0,in1xin2[29][31],in1xin2[29][30:0],29'b0})+
                 ({2'b0,in1xin2[30][31],in1xin2[30][30:0],30'b0}+{1'b1,in1xin2[31][31],in1xin2[31][30:0],31'b0}));
+
+
 endmodule
