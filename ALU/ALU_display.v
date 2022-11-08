@@ -1,14 +1,13 @@
-
-module ALU_display(
-    //æ—¶é’Ÿä¸å¤ä½ä¿¡å·
+module alu_display(
+    //Ê±ÖÓÓë¸´Î»ĞÅºÅ
     input clk,
     input resetn,
-    input [1:0] input_sel,//å¯¹åº”op
-    
+    input [1:0] input_sel,//¶ÔÓ¦op
+    input [1:0] input_sel1,
 
     
     
-    //è§¦æ‘¸å±ç›¸å…³æ¥å£ï¼Œä¸éœ€è¦æ›´æ”¹
+    //´¥ÃşÆÁÏà¹Ø½Ó¿Ú£¬²»ĞèÒª¸ü¸Ä
     output lcd_rst,
     output lcd_cs,
     output lcd_rs,
@@ -21,8 +20,8 @@ module ALU_display(
     output ct_scl,
     output ct_rstn
     );
-//-----{è°ƒç”¨ALUæ¨¡å—}begin
-    reg   [3:0] alu_control;  // ALUæ§åˆ¶ä¿¡å·op
+//-----{µ÷ÓÃALUÄ£¿é}begin
+    reg   [3:0] alu_control;  // ALU¿ØÖÆĞÅºÅop
     /*
     00 = adder
     01 = weiyi
@@ -30,9 +29,9 @@ module ALU_display(
     11 = multi
     */
     reg   [3:0] alu_control1; //op1
-    reg   [31:0] alu_src1;     // ALUæ“ä½œæ•°1
-    reg   [31:0] alu_src2;     // ALUæ“ä½œæ•°2
-    wire  [31:0] alu_result;   // ALUç»“æœ
+    reg   [31:0] alu_src1;     // ALU²Ù×÷Êı1
+    reg   [31:0] alu_src2;     // ALU²Ù×÷Êı2
+    wire  [31:0] alu_result;   // ALU½á¹û
     wire  overflow;
     wire  carryout;
     wire  zero;
@@ -48,10 +47,10 @@ module ALU_display(
         .carryout   (carryout),
         .N          (N)
     );
-//-----{è°ƒç”¨ALUæ¨¡å—}end
-//---------------------{è°ƒç”¨è§¦æ‘¸å±æ¨¡å—}begin--------------------//
-//-----{å®ä¾‹åŒ–è§¦æ‘¸å±}begin
-//æ­¤å°èŠ‚ä¸éœ€è¦æ›´æ”¹
+//-----{µ÷ÓÃALUÄ£¿é}end
+//---------------------{µ÷ÓÃ´¥ÃşÆÁÄ£¿é}begin--------------------//
+//-----{ÊµÀı»¯´¥ÃşÆÁ}begin
+//´ËĞ¡½Ú²»ĞèÒª¸ü¸Ä
     reg         display_valid;
     reg  [39:0] display_name;
     reg  [31:0] display_value;
@@ -63,7 +62,7 @@ module ALU_display(
         .clk            (clk           ),   //10Mhz
         .resetn         (resetn        ),
 
-        //è°ƒç”¨è§¦æ‘¸å±çš„æ¥å£
+        //µ÷ÓÃ´¥ÃşÆÁµÄ½Ó¿Ú
         .display_valid  (display_valid ),
         .display_name   (display_name  ),
         .display_value  (display_value ),
@@ -71,7 +70,7 @@ module ALU_display(
         .input_valid    (input_valid   ),
         .input_value    (input_value   ),
 
-        //lcdè§¦æ‘¸å±ç›¸å…³æ¥å£ï¼Œä¸éœ€è¦æ›´æ”¹
+        //lcd´¥ÃşÆÁÏà¹Ø½Ó¿Ú£¬²»ĞèÒª¸ü¸Ä
         .lcd_rst        (lcd_rst       ),
         .lcd_cs         (lcd_cs        ),
         .lcd_rs         (lcd_rs        ),
@@ -84,12 +83,12 @@ module ALU_display(
         .ct_scl         (ct_scl        ),
         .ct_rstn        (ct_rstn       )
     ); 
-//-----{å®ä¾‹åŒ–è§¦æ‘¸å±}end
+//-----{ÊµÀı»¯´¥ÃşÆÁ}end
 
-//-----{ä»è§¦æ‘¸å±è·å–è¾“å…¥}begin
-//æ ¹æ®å®é™…éœ€è¦è¾“å…¥çš„æ•°ä¿®æ”¹æ­¤å°èŠ‚ï¼Œ
-//å»ºè®®å¯¹æ¯ä¸€ä¸ªæ•°çš„è¾“å…¥ï¼Œç¼–å†™å•ç‹¬ä¸€ä¸ªalwayså—
-    //å½“input_selä¸º00æ—¶ï¼Œè¡¨ç¤ºè¾“å…¥opä¿¡å·ï¼Œå³alu_control
+//-----{´Ó´¥ÃşÆÁ»ñÈ¡ÊäÈë}begin
+//¸ù¾İÊµ¼ÊĞèÒªÊäÈëµÄÊıĞŞ¸Ä´ËĞ¡½Ú£¬
+//½¨Òé¶ÔÃ¿Ò»¸öÊıµÄÊäÈë£¬±àĞ´µ¥¶ÀÒ»¸öalways¿é
+    //µ±input_selÎª00Ê±£¬±íÊ¾ÊäÈëopĞÅºÅ£¬¼´alu_control
     always @(posedge clk)
     begin
         if (!resetn)
@@ -100,26 +99,26 @@ module ALU_display(
         begin
             alu_control <= input_value[3:0];
         end
-    end
+    end 
+/*
     always @(posedge clk)
     begin
         case(alu_control)
         4'b0000:
-            defparam
-                ALU32.O = 0;
+        begin
+          ALU32.O = 0;
+        end
         4'b0001:
-            defparam
-                ALU32.O = 1;
+           ALU32.O = 1;
         4'b0010:
-            defparam
-                ALU32.O = 2;
+             ALU32.O = 2;
         4'b0011:
-            defparam
-                ALU32.O = 3;
+             ALU32.O = 3;
         default:;
         endcase
 
     end
+*/
     always @(posedge clk)
     begin
         if (!resetn)
@@ -132,7 +131,7 @@ module ALU_display(
         end
     end
     
-    //å½“input_selä¸º10æ—¶ï¼Œè¡¨ç¤ºè¾“å…¥æ•°ä¸ºæºæ“ä½œæ•°1ï¼Œå³alu_src1,in0
+    //µ±input_selÎª10Ê±£¬±íÊ¾ÊäÈëÊıÎªÔ´²Ù×÷Êı1£¬¼´alu_src1,in0
     always @(posedge clk)
     begin
         if (!resetn)
@@ -145,7 +144,7 @@ module ALU_display(
         end
     end
 
-    //å½“input_selä¸º11æ—¶ï¼Œè¡¨ç¤ºè¾“å…¥æ•°ä¸ºæºæ“ä½œæ•°2ï¼Œå³alu_src2
+    //µ±input_selÎª11Ê±£¬±íÊ¾ÊäÈëÊıÎªÔ´²Ù×÷Êı2£¬¼´alu_src2
     always @(posedge clk)
     begin
         if (!resetn)
@@ -157,31 +156,31 @@ module ALU_display(
             alu_src2 <= input_value;
         end
     end
-//-----{ä»è§¦æ‘¸å±è·å–è¾“å…¥}end
+//-----{´Ó´¥ÃşÆÁ»ñÈ¡ÊäÈë}end
 
-//-----{è¾“å‡ºåˆ°è§¦æ‘¸å±æ˜¾ç¤º}begin
-//æ ¹æ®éœ€è¦æ˜¾ç¤ºçš„æ•°ä¿®æ”¹æ­¤å°èŠ‚ï¼Œ
-//è§¦æ‘¸å±ä¸Šå…±æœ‰44å—æ˜¾ç¤ºåŒºåŸŸï¼Œå¯æ˜¾ç¤º44ç»„32ä½æ•°æ®
-//44å—æ˜¾ç¤ºåŒºåŸŸä»1å¼€å§‹ç¼–å·ï¼Œç¼–å·ä¸º1~44ï¼Œ
+//-----{Êä³öµ½´¥ÃşÆÁÏÔÊ¾}begin
+//¸ù¾İĞèÒªÏÔÊ¾µÄÊıĞŞ¸Ä´ËĞ¡½Ú£¬
+//´¥ÃşÆÁÉÏ¹²ÓĞ44¿éÏÔÊ¾ÇøÓò£¬¿ÉÏÔÊ¾44×é32Î»Êı¾İ
+//44¿éÏÔÊ¾ÇøÓò´Ó1¿ªÊ¼±àºÅ£¬±àºÅÎª1~44£¬
     always @(posedge clk)
     begin
         case(display_number)
             10'd1 :
             begin
                 display_valid <= 1'b1;
-                display_name  <= "in0";
+                display_name  <= "IN0";
                 display_value <= alu_src1;
             end
             10'd2 :
             begin
                 display_valid <= 1'b1;
-                display_name  <= "in1";
+                display_name  <= "IN1";
                 display_value <= alu_src2;
             end
             10'd3 :
             begin
                 display_valid <= 1'b1;
-                display_name  <= "out";
+                display_name  <= "OUT";
                 display_value <= alu_result;
             end
             10'd4 :
@@ -229,6 +228,6 @@ module ALU_display(
             end
         endcase
     end
-//-----{è¾“å‡ºåˆ°è§¦æ‘¸å±æ˜¾ç¤º}end
-//----------------------{è°ƒç”¨è§¦æ‘¸å±æ¨¡å—}end---------------------//
+//-----{Êä³öµ½´¥ÃşÆÁÏÔÊ¾}end
+//----------------------{µ÷ÓÃ´¥ÃşÆÁÄ£¿é}end---------------------//
 endmodule
