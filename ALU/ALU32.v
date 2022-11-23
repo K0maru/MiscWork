@@ -101,7 +101,7 @@ carryout4,overflow4,zero4,N4,out4
             2:
             ALU_Logic Logic(.in0(in0),.in1(in1),.out(out),.zero(zero),.carryout(carryout),.overflow(overflow),.op1(op1),.N(N));
             3:
-            ALU_multi multi(.A(in0),.B(in1),.Y(out),.zero(zero),.carryout(carryout),.overflow(overflow),.N(N));//ï¿½ï¿½ï¿½Ð³Ë·ï¿½
+            ALU_multi multi(.A(in0),.B(in1),.Y(out),.zero(zero),.carryout(carryout),.overflow(overflow),.N(N));//???§Ô??
             default:;
             endcase
             

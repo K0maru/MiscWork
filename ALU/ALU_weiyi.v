@@ -9,7 +9,7 @@ carryout,overflow,zero,out,N
     integer i;
     always @(*) begin
         case(op1)
-            //shlé€»è¾‘å·¦ç§»
+            //shlÂß¼­×óÒÆ
         4'b0000:
             begin
                 {carryout,out}=in0<<in1;
@@ -17,7 +17,7 @@ carryout,overflow,zero,out,N
                 zero=(out==0)?1:0;
                 N = out[31];
             end
-        //shré€»è¾‘å³ç§»
+        //shrÂß¼­ÓÒÒÆ
         4'b0001:
             begin
                 out=in0>>in1;
@@ -26,7 +26,7 @@ carryout,overflow,zero,out,N
                 zero=(out==0)?1:0;
                 N = out[31];
             end
-        //sarç®—æœ¯å³
+        //sarËãÊõÓÒ
         4'b0010:
             begin
                 out=($signed(in0))>>>in1;
@@ -35,16 +35,17 @@ carryout,overflow,zero,out,N
                 overflow=0;
                 zero=(out==0)?1:0;
             end
-        //salç®—æœ¯å·¦ç§»
+        //salËãÊõ×óÒÆ
         4'b0011:
             begin
                 in4 = in0;
                 carryout = 0;
+                N = in4[31];
                 out=($signed(in0))<<<in1;
                 in3 = out/in4;
                 overflow=(~(in3%2)&&out>in4)?0:1;
                 zero=(out==0)?1:0;
-                N = out[31];
+                out[31] = N;
                 
             end
         default:

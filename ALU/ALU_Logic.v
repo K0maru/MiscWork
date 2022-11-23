@@ -35,7 +35,7 @@ carryout,overflow,zero,out,N
                 overflow=0;
                 N = out[31];
             end
-        //È´ò‰Ωé16‰Ωç‰∫§Êç¢
+        //∏ﬂµÕ16ŒªΩªªª
         4'b0011:
             begin
                 out={in0[15:0],in0[31:16]};

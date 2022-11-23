@@ -30,13 +30,13 @@ carryout,overflow,zero,out,op1,N
             begin
                 in3 = in0;
                 N = in3[31];
-                in3 = ~in3+1;
+                {carryout,in3} = ~in3+1;
                 in3[31] = N;
 
                 in4 = in1;
-                N = ~in4[31];
-                in4 = ~in1+1;
-                in4[31] = N;
+               // N = in4[31];
+                {carryout,in4} = ~in1+1;
+                //in4[31] = N;
 
                 out = in3+in4;
                 N = out[31];
@@ -46,6 +46,8 @@ carryout,overflow,zero,out,op1,N
                 N = out[31];
                 overflow=in0[31]&in1[31] ^ in0[30]&in1[30];
                 zero=(in0==in1)?1:0;
+                in3 = 0;
+                in4 = 0;
             end
         //sub1
         4'b0011:

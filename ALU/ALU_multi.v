@@ -224,7 +224,7 @@ module dadda_16(A,B,Y);
 endmodule
 
 
-module ALU_multi(A,B,Y,carryout,overflow,zero,N);//ï¿½ï¿½ï¿½Ð³Ë·ï¿½
+module ALU_multi(A,B,Y,carryout,overflow,zero,N);//???§Ô??
 
     input [31:0]A;
     input [31:0]B;  
